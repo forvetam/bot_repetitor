@@ -63,7 +63,7 @@ inf_que2 = {1: ('2. На рисунке справа схема дорог Н-с
                 'Например, путь из Г в Д через Е и К записывается как ГЕКД.', 'photo-200366169_457239042')}
 inf_ans2 = {1: '40',
             2: '56',
-            3: 'АБВЕК'}
+            3: 'абвек'}
 
 inf_que3 = {1: ('3.', 'photo-200366169_457239043'),
             2: ('3.', 'photo-200366169_457239044'),
@@ -302,12 +302,15 @@ def exam():
             if ev.to_me:
                 text1 = ev.text.lower()
 
-                if text1 == 'информатика':
+                if 'информатика' in text1:
                     test_ = {'question': inf_que, 'answer': inf_ans}
                     break
-                elif text1 == 'математика':
+                elif 'математика' in text1:
                     test_ = {'question': math_que, 'answer': math_ans}
                     break
+                elif 'прервать проверку' in text1:
+                    write_msg(event.user_id, "Проверка прервана")
+                    return
                 else:
                     write_msg(event.user_id, 'Такого предмета нет! :(')
 
@@ -331,6 +334,9 @@ def exam():
                     if text_1 == test_['answer'][task_num][rnd]:
                         right_wrong += ['Верно!']
                         break
+                    elif 'прервать проверку' in text_1:
+                        write_msg(event.user_id, "Проверка прервана")
+                        return
                     else:
                         right_wrong += ['Неверно!']
                         break
@@ -356,19 +362,19 @@ for event in longpoll.listen():
             # Сообщение от пользователя
             request = event.text.lower()
 
-            if request == "привет":
+            if "привет" in request:
                 write_msg(event.user_id, "Привет!")
 
-            elif request == "пока":
+            elif "пока" in request:
                 write_msg(event.user_id, "До скорого!")
 
-            elif request == "проверить знания" or request == "проверка знаний":
+            elif ("проверить знания" in request) or ("проверка знаний" in request):
                 write_msg(event.user_id, "Выбери предмет, по которому хочешь пройти тест:\n- Математика\n- "
-                                         "Информатика")
+                                         "Информатика\n\nЕсли ты хочешь прервать тест, введи «прервать проверку»")
                 exam()
 
             else:
                 write_msg(event.user_id, "Извините, я не понимаю! Пожалуйста, используйте одну из предложенных "
-                                         "комманд: привет, пока, проверка знаний.")
+                                         "комманд: «привет», «пока», «проверка знаний».")
 
 
