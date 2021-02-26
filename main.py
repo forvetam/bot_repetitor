@@ -308,7 +308,7 @@ def exam():
                 elif 'математика' in text1:
                     test_ = {'question': math_que, 'answer': math_ans}
                     break
-                elif 'прервать проверку' in text1:
+                elif ('прервать проверку' in text1) or ('прекратить проверку' in text1):
                     write_msg(event.user_id, "Проверка прервана")
                     return
                 else:
