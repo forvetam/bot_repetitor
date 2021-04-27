@@ -12,7 +12,7 @@ def msg_with_attachment(user_id, message, photo):
                                 "attachment": photo, "random_id": random.randint(0, 2048)})
 
 
-token = "f161b7f89fb33f6f4340094b3bf2ceff2d64e3ca72d15551286659a81d2b21846ceb6ef34fb2c5726dc83"
+token = ""
 # API-ключ
 
 vk = vk_api.VkApi(token=token)
